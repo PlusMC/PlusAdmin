@@ -11,12 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -211,6 +213,18 @@ public class InvSee implements PlusCommand, Listener {
         public void onPlayerInventoryDrag(InventoryDragEvent e) {
             if(e.isCancelled()) return;
             onInvModification(e, e.getInventory(), 0);
+        }
+
+        @EventHandler
+        public void onItemConsume(PlayerItemConsumeEvent e) {
+            if(e.isCancelled()) return;
+            onInvModification(e, e.getPlayer().getInventory(), 0);
+        }
+
+        @EventHandler
+        public void onBlockPlace(BlockPlaceEvent e) {
+            if(e.isCancelled()) return;
+            onInvModification(e, e.getPlayer().getInventory(), 0);
         }
 
 
