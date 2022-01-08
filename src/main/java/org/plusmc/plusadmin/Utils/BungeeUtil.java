@@ -1,8 +1,8 @@
-package com.playplusmc.plusadmin.Utils;
+package org.plusmc.plusadmin.Utils;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import com.playplusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.PlusAdmin;
 import org.bukkit.entity.Player;
 
 public class BungeeUtil {

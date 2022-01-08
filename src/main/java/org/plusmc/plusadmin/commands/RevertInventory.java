@@ -1,7 +1,7 @@
-package com.playplusmc.plusadmin.commands;
+package org.plusmc.plusadmin.commands;
 
-import com.playplusmc.plusadmin.PlusAdmin;
-import com.playplusmc.plusadmin.Utils.FileUtil;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.Utils.FileUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;

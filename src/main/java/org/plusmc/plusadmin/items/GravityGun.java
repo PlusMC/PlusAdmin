@@ -1,6 +1,6 @@
-package com.playplusmc.plusadmin.items;
+package org.plusmc.plusadmin.items;
 
-import com.playplusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.PlusAdmin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;

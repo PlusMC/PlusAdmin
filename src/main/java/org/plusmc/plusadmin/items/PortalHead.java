@@ -1,9 +1,9 @@
-package com.playplusmc.plusadmin.items;
+package org.plusmc.plusadmin.items;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.playplusmc.plusadmin.PlusAdmin;
-import com.playplusmc.plusadmin.Utils.BungeeUtil;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.Utils.BungeeUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.TileState;

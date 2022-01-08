@@ -1,4 +1,4 @@
-package com.playplusmc.plusadmin.items;
+package org.plusmc.plusadmin.items;
 
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;

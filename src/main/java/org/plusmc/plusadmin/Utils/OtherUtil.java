@@ -1,10 +1,10 @@
-package com.playplusmc.plusadmin.Utils;
+package org.plusmc.plusadmin.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class OtherUtils {
+public class OtherUtil {
 
     public static <T> List<T> getKeys(Map<T, T> map, T value ) {
         List<T> keys = new ArrayList<>();

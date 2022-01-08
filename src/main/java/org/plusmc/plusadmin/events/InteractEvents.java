@@ -1,6 +1,6 @@
-package com.playplusmc.plusadmin.events;
+package org.plusmc.plusadmin.events;
 
-import com.playplusmc.plusadmin.items.PlusItem;
+import org.plusmc.plusadmin.items.PlusItem;
 import org.bukkit.block.Block;
 import org.bukkit.block.TileState;
 import org.bukkit.entity.Player;

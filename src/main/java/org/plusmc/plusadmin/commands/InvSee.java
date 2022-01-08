@@ -1,7 +1,7 @@
-package com.playplusmc.plusadmin.commands;
+package org.plusmc.plusadmin.commands;
 
-import com.playplusmc.plusadmin.PlusAdmin;
-import com.playplusmc.plusadmin.Utils.OtherUtils;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.Utils.OtherUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import static org.plusmc.plusadmin.Utils.OtherUtil.getKeys;
 
 public class InvSee implements PlusCommand, Listener {
     private static HashMap<Inventory, Inventory> INVENTORIES = new HashMap<>();
@@ -159,7 +161,7 @@ public class InvSee implements PlusCommand, Listener {
             });
         } else if(INVENTORIES.containsValue(inv)) {
             Bukkit.getScheduler().runTask(PlusAdmin.getInstance(), () -> {
-                List<Inventory> invs = OtherUtils.getKeys(INVENTORIES, inv);
+                List<Inventory> invs = getKeys(INVENTORIES, inv);
                 if(invs.size() == 0) return;
                 Inventory inv1 = invs.get(0);
                 ItemStack[] contents = inv.getContents();

@@ -1,6 +1,6 @@
-package com.playplusmc.plusadmin.commands;
+package org.plusmc.plusadmin.commands;
 
-import com.playplusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.PlusAdmin;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
@@ -14,9 +14,10 @@ import java.util.List;
 
 public interface PlusCommand extends CommandExecutor, TabCompleter {
     List<PlusCommand> COMMANDS = List.of(
-            new AdminItem(),
+            new AdminTool(),
             new RevertInventory(),
-            new InvSee()
+            new InvSee(),
+            new Vanish()
     );
 
     String getName();
@@ -33,7 +34,7 @@ public interface PlusCommand extends CommandExecutor, TabCompleter {
 
     default List<String> filterCompletions(String arg, int page) {
         String arg2 = arg.toLowerCase();
-        List<String> completions = getCompletions(page);
+        List<String> completions = getCompletions(page) == null ? new ArrayList<>() : getCompletions(page);
         List<String> filtered = new ArrayList<>();
         completions.forEach(s -> {
             if (s.toLowerCase().startsWith(arg2))

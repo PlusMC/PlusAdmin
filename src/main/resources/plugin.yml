@@ -1,6 +1,7 @@
 name: PlusAdmin
 version: '${project.version}'
-main: com.playplusmc.plusadmin.PlusAdmin
+main: org.plusmc.plusadmin.PlusAdmin
 api-version: 1.18
 authors: [ OakleyCord ]
 description: Admin tools for the Plus MC Server
+website: plusmc.org

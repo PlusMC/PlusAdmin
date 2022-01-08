@@ -1,9 +1,9 @@
-package com.playplusmc.plusadmin;
+package org.plusmc.plusadmin;
 
-import com.playplusmc.plusadmin.commands.InvSee;
-import com.playplusmc.plusadmin.commands.PlusCommand;
-import com.playplusmc.plusadmin.events.InteractEvents;
-import com.playplusmc.plusadmin.items.PlusItem;
+import org.plusmc.plusadmin.commands.InvSee;
+import org.plusmc.plusadmin.commands.PlusCommand;
+import org.plusmc.plusadmin.events.InteractEvents;
+import org.plusmc.plusadmin.items.PlusItem;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;

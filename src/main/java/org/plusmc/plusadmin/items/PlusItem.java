@@ -1,6 +1,6 @@
-package com.playplusmc.plusadmin.items;
+package org.plusmc.plusadmin.items;
 
-import com.playplusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.PlusAdmin;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.block.BlockPlaceEvent;

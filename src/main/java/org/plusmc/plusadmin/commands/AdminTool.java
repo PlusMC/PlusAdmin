@@ -1,6 +1,6 @@
-package com.playplusmc.plusadmin.commands;
+package org.plusmc.plusadmin.commands;
 
-import com.playplusmc.plusadmin.items.PlusItem;
+import org.plusmc.plusadmin.items.PlusItem;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -9,25 +9,25 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminItem implements PlusCommand {
+public class AdminTool implements PlusCommand {
     @Override
     public String getName() {
-        return "adminitem";
+        return "admintool";
     }
 
     @Override
     public String getPermission() {
-        return "plusadmin.adminitem";
+        return "plusadmin.admintool";
     }
 
     @Override
     public String getUsage() {
-        return "§7/adminitem <item>";
+        return "§7/admintool <item>";
     }
 
     @Override
     public String getDescription() {
-        return "§7Gives you a admin item";
+        return "§7Gives you a admin tool";
     }
 
     @Override
@@ -57,4 +57,6 @@ public class AdminItem implements PlusCommand {
         p.sendMessage("§aYou have been given a §e" + item.getID() + "§a!");
         return true;
     }
+
+
 }
