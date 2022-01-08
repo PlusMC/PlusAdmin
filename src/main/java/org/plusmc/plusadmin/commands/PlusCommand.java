@@ -15,7 +15,7 @@ import java.util.List;
 public interface PlusCommand extends CommandExecutor, TabCompleter {
     List<PlusCommand> COMMANDS = List.of(
             new AdminTool(),
-            new RevertInventory(),
+            new RevertPlayer(),
             new InvSee(),
             new Vanish()
     );

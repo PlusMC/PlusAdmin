@@ -52,7 +52,7 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public String getDescription() {
-        return "§7Allows you to see another players inventory";
+        return "§7Allows you to see another players inventory in real time, including their EnderChest.";
     }
 
     @Override

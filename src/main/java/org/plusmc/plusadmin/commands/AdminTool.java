@@ -27,7 +27,7 @@ public class AdminTool implements PlusCommand {
 
     @Override
     public String getDescription() {
-        return "§7Gives you a admin tool";
+        return "§7Gives you a admin tool.";
     }
 
     @Override

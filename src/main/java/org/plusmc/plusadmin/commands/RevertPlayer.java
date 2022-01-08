@@ -13,26 +13,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RevertInventory implements PlusCommand {
+public class RevertPlayer implements PlusCommand {
 
     @Override
     public String getName() {
-        return "revertinventory";
+        return "revertplayer";
     }
 
     @Override
     public String getPermission() {
-        return "plusadmin.revertinventory";
+        return "plusadmin.revertplayer";
     }
 
     @Override
     public String getUsage() {
-        return "§7/revertinventory <backup> <player>";
+        return "§7/revertplayer <backup> <player>";
     }
 
     @Override
     public String getDescription() {
-        return "§7Reverts a players inventory to a saved backup";
+        return "§7Reverts a player's data to a saved backup, kicks the player if online.";
     }
 
     @Override
@@ -102,7 +102,7 @@ public class RevertInventory implements PlusCommand {
         Player p = offlinePlayer.getPlayer();
         boolean online = p != null;
         if(online)
-            p.kickPlayer("§cReverting inventory...");
+            p.kickPlayer("§cReverting data...");
 
 
         byte[] oldData = FileUtil.readData(new File("world/playerdata/" + UUID + ".dat"));
@@ -110,7 +110,7 @@ public class RevertInventory implements PlusCommand {
 
         FileUtil.rewriteData(new File("world/playerdata/" + UUID + ".dat"), data);
 
-        sender.sendMessage("§aReverted inventory!");
+        sender.sendMessage("§aReverted data!");
 
 
         return true;
