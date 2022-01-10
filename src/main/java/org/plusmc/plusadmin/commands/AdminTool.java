@@ -22,7 +22,7 @@ public class AdminTool implements PlusCommand {
 
     @Override
     public String getUsage() {
-        return "§7/admintool <item>";
+        return "§7/admintool <tool>";
     }
 
     @Override

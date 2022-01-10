@@ -12,7 +12,7 @@ public class SlayButton implements PlusItem {
 
     @Override
     public String getName() {
-        return "Slay Buttom";
+        return "Slay Button";
     }
 
     @Override
