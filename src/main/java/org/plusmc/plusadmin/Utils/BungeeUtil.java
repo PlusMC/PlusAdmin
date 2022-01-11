@@ -1,4 +1,4 @@
-package org.plusmc.plusadmin.Utils;
+package org.plusmc.plusadmin.utils;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;

@@ -1,4 +1,4 @@
-package org.plusmc.plusadmin.Utils;
+package org.plusmc.plusadmin.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,7 +1,5 @@
 package org.plusmc.plusadmin.commands;
 
-import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.plusadmin.Utils.OtherUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,13 +22,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.plusadmin.utils.OtherUtil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.plusmc.plusadmin.Utils.OtherUtil.getKeys;
+import static org.plusmc.plusadmin.utils.OtherUtil.getKeys;
 
 public class InvSee implements PlusCommand, Listener {
     private static HashMap<Inventory, Inventory> INVENTORIES = new HashMap<>();
@@ -74,12 +73,11 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public List<String> getCompletions(int page) {
-        List<String> args = switch (page) {
+        return switch (page) {
             case 1 -> OtherUtil.allPlayers();
             case 2 -> List.of("Enderchest", "Inventory");
             default -> null;
-        }
-        return args;
+        };
     }
 
     @Override

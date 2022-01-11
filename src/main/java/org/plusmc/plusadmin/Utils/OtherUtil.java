@@ -1,4 +1,7 @@
-package org.plusmc.plusadmin.Utils;
+package org.plusmc.plusadmin.utils;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
