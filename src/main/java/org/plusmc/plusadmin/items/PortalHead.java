@@ -139,14 +139,12 @@ public class PortalHead implements PlusItem {
     private static void tick() {
         for (Block block : TICKING_BLOCKS) {
             if(!block.getChunk().isLoaded()) continue;
-            if(!(block.getState() instanceof TileState)) continue;
-            TileState state = (TileState) block.getState();
+            if(!(block.getState() instanceof TileState state)) continue;
             String name = state.getPersistentDataContainer().get(PORTAL_KEY, PersistentDataType.STRING);
             if(name == null) continue;
 
             block.getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2).forEach(entity -> {
-                if(entity instanceof Player) {
-                    Player p = (Player) entity;
+                if(entity instanceof Player p) {
                     if(!(LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 5000)) {
                         LAST_USE.put(p, System.currentTimeMillis());
                         BungeeUtil.connectServer(p, name);

@@ -33,8 +33,7 @@ public class InteractEvents implements Listener {
 
         Block block = e.getClickedBlock();
         if (block == null) return;
-        if(!(block.getState() instanceof TileState)) return;
-        TileState state = (TileState) block.getState();
+        if(!(block.getState() instanceof TileState state)) return;
         try {
             String id = state.getPersistentDataContainer().get(PlusItem.CUSTOM_ITEM_KEY, PersistentDataType.STRING);
             PlusItem item = PlusItem.getCustomItem(id);
@@ -63,8 +62,7 @@ public class InteractEvents implements Listener {
 
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e) {
-        if(!(e.getDamager() instanceof Player)) return;
-        Player p = (Player) e.getDamager();
+        if(!(e.getDamager() instanceof Player p)) return;
         ItemStack stack = p.getInventory().getItemInMainHand();
         ItemMeta meta = stack.getItemMeta();
         if (meta == null) return;

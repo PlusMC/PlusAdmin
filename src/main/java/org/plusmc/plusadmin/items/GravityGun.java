@@ -71,8 +71,7 @@ public class GravityGun implements PlusItem {
     @Override
     public void onInteractEntity(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-        if(!(e.getRightClicked() instanceof LivingEntity)) return;
-        LivingEntity ee = (LivingEntity) e.getRightClicked();
+        if(!(e.getRightClicked() instanceof LivingEntity ee)) return;
         if(LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
 
         if(!HELD.containsKey(p)) {
@@ -88,8 +87,7 @@ public class GravityGun implements PlusItem {
 
     @Override
     public void onDamageEntity(EntityDamageByEntityEvent e) {
-        if(!(e.getDamager() instanceof Player)) return;
-        Player p = (Player) e.getDamager();
+        if(!(e.getDamager() instanceof Player p)) return;
         if(HELD.containsKey(p)) {
             LivingEntity ee = HELD.get(p);
             if (ee != e.getEntity()) return;
@@ -99,10 +97,9 @@ public class GravityGun implements PlusItem {
             Vector to = p.getEyeLocation().getDirection().multiply(3);
             ee.setVelocity(to);
         } else {
-            if(!(e.getEntity() instanceof LivingEntity)) return;
+            if(!(e.getEntity() instanceof LivingEntity ee)) return;
             e.setCancelled(true);
 
-            LivingEntity ee = (LivingEntity) e.getEntity();
             Vector to = p.getEyeLocation().getDirection().multiply(3);
             ee.setVelocity(to);
         }

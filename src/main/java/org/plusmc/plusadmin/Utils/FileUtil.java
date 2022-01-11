@@ -48,14 +48,12 @@ public class FileUtil {
         return result;
     }
 
-    public static byte[] rewriteData(File file, byte[] data) {
+    public static void rewriteData(File file, byte[] data) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(data);
             fileOutputStream.close();
-        } catch (Exception e) {
-            return null;
+        } catch (Exception ignored) {
         }
-        return data;
     }
 }

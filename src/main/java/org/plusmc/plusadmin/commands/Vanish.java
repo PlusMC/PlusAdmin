@@ -54,11 +54,10 @@ public class Vanish implements PlusCommand {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player)) {
+        if(!(sender instanceof Player player)) {
             sender.sendMessage("Only players can use this command");
             return true;
         }
-        Player player = (Player) sender;
         if(VANISHED.contains(player)) {
             VANISHED.remove(player);
             Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(PlusAdmin.getInstance(), player));

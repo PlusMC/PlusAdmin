@@ -27,8 +27,7 @@ public class SlayButton implements PlusItem {
 
     @Override
     public void onInteractEntity(PlayerInteractEntityEvent e) {
-        if(e.getRightClicked() instanceof LivingEntity) {
-            LivingEntity entity = (LivingEntity) e.getRightClicked();
+        if(e.getRightClicked() instanceof LivingEntity entity) {
             entity.setHealth(0);
         } else {
             e.getRightClicked().remove();

@@ -41,8 +41,7 @@ public class AdminTool implements PlusCommand {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player)) return false;
-        Player p = (Player) sender;
+        if(!(sender instanceof Player p)) return false;
 
         if(args.length != 1) {
             return false;

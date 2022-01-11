@@ -82,11 +82,10 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player)) {
+        if(!(sender instanceof Player p)) {
             sender.sendMessage("§cYou must be a player to use this command.");
             return false;
         }
-        Player p = (Player) sender;
         if(args.length == 0) {
             return false;
         }
