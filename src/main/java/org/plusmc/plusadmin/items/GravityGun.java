@@ -24,6 +24,8 @@ public class GravityGun implements PlusItem {
 
     @Override
     public void load() {
+        HELD = new HashMap<>();
+        LAST_USE = new HashMap<>();
         TASK = Bukkit.getScheduler().runTaskTimer(PlusAdmin.getInstance(), this::tick, 0, 1);
     }
 

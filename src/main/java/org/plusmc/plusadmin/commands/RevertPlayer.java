@@ -27,7 +27,7 @@ public class RevertPlayer implements PlusCommand {
 
     @Override
     public String getUsage() {
-        return "§7/revertplayer <backup> <player>";
+        return "§7/revertplayer <player> <backup>";
     }
 
     @Override
@@ -38,21 +38,23 @@ public class RevertPlayer implements PlusCommand {
     @Override
     public List<String> getCompletions(int page) {
         List<String> args = new ArrayList<>();
-        switch (page) {
-            case 1:
-                if(getPlayerBackupFolder() == null) return args;
-                PlusAdmin.logger().info(getPlayerBackupFolder().getAbsolutePath());
-                File[] files = getPlayerBackupFolder().listFiles();
-                if(files == null) return args;
-                for(File file : files) {
-                    args.add(file.getName());
-                }
-                break;
-            case 2:
-                Bukkit.getOnlinePlayers().forEach(player -> args.add(player.getName()));
-                break;
+        args = switch (page) {
+            case 1 -> OtherUtil.allPlayers();
+            case 2 -> getFiles();
         }
         return args;
+    }
+
+    private static List<String> getFiles() {
+        List<String> fileNames = new ArrayList<>();
+        if(getPlayerBackupFolder() == null) return fileNames;
+        PlusAdmin.logger().info(getPlayerBackupFolder().getAbsolutePath());
+        File[] files = getPlayerBackupFolder().listFiles();
+        if(files == null) return fileNames;
+          for(File file : files) {
+            fileNames.add(file.getName());
+        }
+        return fileNames;
     }
 
     public static File getPlayerBackupFolder() {
@@ -69,14 +71,14 @@ public class RevertPlayer implements PlusCommand {
             return false;
         }
 
-        String folder = args[0];
+        String folder = args[1];
         File backup = new File(getPlayerBackupFolder(), folder);
         if(!backup.exists()) {
             sender.sendMessage("§cBackup does not exist!");
             return true;
         }
 
-        String playerName = args[1];
+        String playerName = args[0];
         OfflinePlayer offlinePlayer = null;
         String UUID = null;
         for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {

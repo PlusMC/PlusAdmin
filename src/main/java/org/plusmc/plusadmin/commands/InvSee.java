@@ -75,14 +75,9 @@ public class InvSee implements PlusCommand, Listener {
     @Override
     public List<String> getCompletions(int page) {
         List<String> args = new ArrayList<>();
-        switch (page) {
-            case 1:
-                Bukkit.getOnlinePlayers().forEach(player -> args.add(player.getName()));
-                break;
-            case 2:
-                args.add("EnderChest");
-                args.add("Inventory");
-                break;
+        args = switch (page) {
+            case 1 -> OtherUtil.allPlayers();
+            case 2 -> List.of("Enderchest", "Inventory");
         }
         return args;
     }

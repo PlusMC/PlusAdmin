@@ -15,4 +15,10 @@ public class OtherUtil {
         }
         return keys;
     }
+
+    public static List<String> allPlayers() {
+        List<String> players = new ArrayList<>();
+        Bukkit.getOnlinePlayers().forEach(player -> players.add(player.getName()));
+        return players;
+    }
 }
