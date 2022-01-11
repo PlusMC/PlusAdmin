@@ -37,10 +37,10 @@ public class RevertPlayer implements PlusCommand {
 
     @Override
     public List<String> getCompletions(int page) {
-        List<String> args = new ArrayList<>();
-        args = switch (page) {
+        List<String> args = switch (page) {
             case 1 -> OtherUtil.allPlayers();
             case 2 -> getFiles();
+            default -> null;
         }
         return args;
     }

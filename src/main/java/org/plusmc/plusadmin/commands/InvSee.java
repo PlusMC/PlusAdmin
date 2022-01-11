@@ -74,10 +74,10 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public List<String> getCompletions(int page) {
-        List<String> args = new ArrayList<>();
-        args = switch (page) {
+        List<String> args = switch (page) {
             case 1 -> OtherUtil.allPlayers();
             case 2 -> List.of("Enderchest", "Inventory");
+            default -> null;
         }
         return args;
     }
