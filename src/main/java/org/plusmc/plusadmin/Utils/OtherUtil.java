@@ -17,8 +17,6 @@ public class OtherUtil {
     }
 
     public static List<String> allPlayers() {
-        List<String> players = new ArrayList<>();
-        Bukkit.getOnlinePlayers().forEach(player -> players.add(player.getName()));
-        return players;
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
     }
 }
