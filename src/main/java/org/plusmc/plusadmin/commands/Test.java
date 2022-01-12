@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.Containers;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftHumanEntity;
@@ -105,11 +106,11 @@ public class Test implements PlusCommand{
             this.owner = owner;
         }
 
-        public int b() // getSize {
+        public int b()  { // getSize
             return 45;
         }
 
-        public ItemStack a(int i) //getItem {
+        public ItemStack a(int i)  { //getItem
             if(i < this.contents.size()) {
                 return this.contents.get(i);
             } else if(i < this.contents.size() + this.armor.size()) {
@@ -121,7 +122,7 @@ public class Test implements PlusCommand{
             }
         }
 
-        public ItemStack a(int i, int j) //??? {
+        public ItemStack a(int i, int j) { //???
             ItemStack stack = this.a(i); //gets the stack at i
             if (stack == ItemStack.b) { //returns if stack is null
                 return stack;
@@ -140,7 +141,7 @@ public class Test implements PlusCommand{
             }
         }
 
-        public ItemStack b(int i) //???? looks similar to the top one { 
+        public ItemStack b(int i) { //???? looks similar to the top one
             ItemStack stack = this.a(i);
             if (stack == ItemStack.b) {
                 return stack;
@@ -193,10 +194,11 @@ public class Test implements PlusCommand{
             stacks.addAll(this.contents);
             stacks.addAll(this.armor);
             stacks.addAll(this.extra);
-            stacks.add(ItemStack.b);
-            stacks.add(ItemStack.b);
-            stacks.add(ItemStack.b);
-            stacks.add(ItemStack.b);
+            ItemStack stack = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.BARRIER));
+            stacks.add(stack);
+            stacks.add(stack);
+            stacks.add(stack);
+            stacks.add(stack);
             return stacks;
         }
 
