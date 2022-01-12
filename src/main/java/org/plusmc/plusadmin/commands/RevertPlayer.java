@@ -1,14 +1,14 @@
 package org.plusmc.plusadmin.commands;
 
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.plusadmin.utils.FileUtil;
+import org.plusmc.plusadmin.util.FileUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.plusadmin.utils.OtherUtil;
+import org.plusmc.plusadmin.util.OtherUtil;
 
 import java.io.File;
 import java.util.ArrayList;

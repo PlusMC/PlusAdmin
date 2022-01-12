@@ -17,8 +17,7 @@ public interface PlusCommand extends CommandExecutor, TabCompleter {
             new AdminTool(),
             new RevertPlayer(),
             new InvSee(),
-            new Vanish(),
-            new Test()
+            new Vanish()
     );
 
     String getName();

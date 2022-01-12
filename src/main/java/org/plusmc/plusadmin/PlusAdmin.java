@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.plusmc.plusadmin.util.BungeeUtil;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public final class PlusAdmin extends JavaPlugin {
         loadConfig();
         LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        Bukkit.getMessenger().registerIncomingPluginChanne(this, "BungeeCord", new BungeeUtil());
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeUtil());
         PlusCommand.loadCommands();
         PlusItem.loadAll();
     }
@@ -33,7 +34,7 @@ public final class PlusAdmin extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
-        Bukkit.getMessenger.unregisterIncomingPluginChannel(this);
+        Bukkit.getMessenger().unregisterIncomingPluginChannel(this);
         PlusItem.unloadAll();
         PlusCommand.unloadCommands();
     }

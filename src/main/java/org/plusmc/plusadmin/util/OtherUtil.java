@@ -1,4 +1,4 @@
-package org.plusmc.plusadmin.utils;
+package org.plusmc.plusadmin.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

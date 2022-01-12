@@ -1,4 +1,4 @@
-package org.plusmc.plusadmin.utils;
+package org.plusmc.plusadmin.util;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
@@ -14,6 +14,11 @@ import java.util.HashMap;
 public class BungeeUtil implements PluginMessageListener {
     private static HashMap<String, ServerInfo> SERVER_INFO = new HashMap<>();
     private static HashMap<String, PlayerList> PLAYER_LIST = new HashMap<>();
+
+    public BungeeUtil() {
+        SERVER_INFO = new HashMap<>();
+        PLAYER_LIST = new HashMap<>();
+    }
 
     public static void connectServer(Player player, String server) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();

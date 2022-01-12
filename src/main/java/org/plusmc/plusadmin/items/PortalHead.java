@@ -3,7 +3,7 @@ package org.plusmc.plusadmin.items;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.plusadmin.utils.BungeeUtil;
+import org.plusmc.plusadmin.util.BungeeUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.TileState;
