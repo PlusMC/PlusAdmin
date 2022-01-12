@@ -88,12 +88,14 @@ public class Test implements PlusCommand{
         public NonNullList<ItemStack> extra;
         public List<NonNullList<ItemStack>> all;
         private int maxStack;
+        private final ItemStack placeholder;
         private final List<HumanEntity> viewers;
         private final InventoryHolder owner;
 
 
         public CustomInv(InventoryHolder owner, String title, NonNullList<ItemStack> contents, NonNullList<ItemStack> armor, NonNullList<ItemStack> extra) {
             this.maxStack = 64;
+            this.placeholder = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.BARRIER));
             Validate.notNull(title, "Title cannot be null");
             this.contents = contents;
             this.armor = armor;
@@ -111,14 +113,14 @@ public class Test implements PlusCommand{
         }
 
         public ItemStack a(int i)  { //getItem
-            if(i < this.contents.size()) {
+            if(i < 36) {
                 return this.contents.get(i);
-            } else if(i < this.contents.size() + this.armor.size()) {
-                return this.armor.get(i - this.contents.size());
-            } else if (i < this.contents.size() + this.armor.size() + this.extra.size()) {
-                return this.extra.get(i - this.contents.size() - this.armor.size());
-            } else {
-                return ItemStack.b;
+            } else if(i < 40) {
+                return this.armor.get(i - 36);
+            } else if (i < 41)) {
+                return this.extra.get(i - 40);
+            } else if (i < 45){
+                return placeholder;
             }
         }
 
@@ -160,12 +162,12 @@ public class Test implements PlusCommand{
         }
 
         public void a(int i, ItemStack itemstack) { //set item 
-            if(i < this.contents.size()) {
+            if(i < 36) {
                 this.contents.set(i, itemstack);
-            } else if(i < this.contents.size() + this.armor.size()) {
-                this.armor.set(i - this.contents.size(), itemstack);
-            } else if (i < this.contents.size() + this.armor.size() + this.extra.size()) {
-                this.extra.set(i - this.contents.size() - this.armor.size(), itemstack);
+            } else if(i < 40) {
+                this.armor.set(i - 36, itemstack);
+            } else if (i < 41) {
+                this.extra.set(i - 40, itemstack);
             }
 
             if (itemstack != ItemStack.b && this.M_() > 0 && itemstack.I() > this.M_()) { //idk
@@ -193,12 +195,11 @@ public class Test implements PlusCommand{
             List<ItemStack> stacks = new ArrayList<>();
             stacks.addAll(this.contents);
             stacks.addAll(this.armor);
-            stacks.addAll(this.extra);
-            ItemStack stack = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.BARRIER));
-            stacks.add(stack);
-            stacks.add(stack);
-            stacks.add(stack);
-            stacks.add(stack);
+            stacks.addAll(this.extra);;
+            stacks.add(placeholder);
+            stacks.add(placeholder);
+            stacks.add(placeholder);
+            stacks.add(placeholder);
             return stacks;
         }
 
@@ -239,14 +240,11 @@ public class Test implements PlusCommand{
             return null;
         }
 
-
-
         public boolean c() { //isEmpty
             for(NonNullList<ItemStack> list : this.all) {
                 for(ItemStack stack : list) {
-                    if(!stack.b()) {
+                    if(!stack.b()) 
                         return false;
-                    }
                 }
             }
             return true;
