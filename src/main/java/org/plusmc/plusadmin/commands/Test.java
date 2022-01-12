@@ -66,7 +66,7 @@ public class Test implements PlusCommand{
             f.setAccessible(true);
             CraftInventoryPlayer craftInv = (CraftInventoryPlayer) f.get(craftPlayer);
             PlayerInventory inv = craftInv.getInventory();
-            Inventory inventory = new CraftCustomInv(null, "test", inv.h, inv.i, inv.j);
+            Inventory inventory = new CraftInventory(new CustomInv(null, "test", inv.h, inv.i, inv.j));
             craftPlayer.getInventory();
             EntityPlayer player = craftPlayer.getHandle();
             Container container = new CraftContainer(inventory, craftPlayer.getHandle(), craftPlayer.getHandle().nextContainerCounter());
@@ -79,16 +79,6 @@ public class Test implements PlusCommand{
             e.printStackTrace();
         }
         return false;
-    }
-
-    public static class CraftCustomInv extends CraftInventory {
-        public CraftCustomInv(InventoryHolder owner, String title, int size) {
-            super(new CustomInv(owner, title, null, null, null));
-        }
-
-        public CraftCustomInv(InventoryHolder owner, String title, NonNullList<ItemStack> contents, NonNullList<ItemStack> armor, NonNullList<ItemStack> extra) {
-            super(new CustomInv(owner, title, contents, armor, extra));
-        }
     }
 
     static class CustomInv implements IInventory {
@@ -115,11 +105,11 @@ public class Test implements PlusCommand{
             this.owner = owner;
         }
 
-        public int b() {
+        public int b() // getSize {
             return 45;
         }
 
-        public ItemStack a(int i) {
+        public ItemStack a(int i) //getItem {
             if(i < this.contents.size()) {
                 return this.contents.get(i);
             } else if(i < this.contents.size() + this.armor.size()) {
@@ -131,12 +121,12 @@ public class Test implements PlusCommand{
             }
         }
 
-        public ItemStack a(int i, int j) {
-            ItemStack stack = this.a(i);
-            if (stack == ItemStack.b) {
+        public ItemStack a(int i, int j) //??? {
+            ItemStack stack = this.a(i); //gets the stack at i
+            if (stack == ItemStack.b) { //returns if stack is null
                 return stack;
             } else {
-                ItemStack result;
+                ItemStack result; 
                 if (stack.I() <= j) {
                     this.a(i, ItemStack.b);
                     result = stack;
@@ -150,7 +140,7 @@ public class Test implements PlusCommand{
             }
         }
 
-        public ItemStack b(int i) {
+        public ItemStack b(int i) //???? looks similar to the top one { 
             ItemStack stack = this.a(i);
             if (stack == ItemStack.b) {
                 return stack;
@@ -168,7 +158,7 @@ public class Test implements PlusCommand{
             }
         }
 
-        public void a(int i, ItemStack itemstack) {
+        public void a(int i, ItemStack itemstack) { //set item 
             if(i < this.contents.size()) {
                 this.contents.set(i, itemstack);
             } else if(i < this.contents.size() + this.armor.size()) {
@@ -177,28 +167,28 @@ public class Test implements PlusCommand{
                 this.extra.set(i - this.contents.size() - this.armor.size(), itemstack);
             }
 
-            if (itemstack != ItemStack.b && this.M_() > 0 && itemstack.I() > this.M_()) {
+            if (itemstack != ItemStack.b && this.M_() > 0 && itemstack.I() > this.M_()) { //idk
                 itemstack.e(this.M_());
             }
 
         }
 
-        public int M_() {
+        public int M_() { //max stack size
             return this.maxStack;
         }
 
-        public void setMaxStackSize(int size) {
+        public void setMaxStackSize(int size) { 
             this.maxStack = size;
         }
 
-        public void e() {
+        public void e() { //????
         }
 
-        public boolean a(EntityHuman entityhuman) {
+        public boolean a(EntityHuman entityhuman) { //?? im guessing gets the inventory holder
             return true;
         }
 
-        public List<ItemStack> getContents() {
+        public List<ItemStack> getContents() { 
             List<ItemStack> stacks = new ArrayList<>();
             stacks.addAll(this.contents);
             stacks.addAll(this.armor);
@@ -210,7 +200,7 @@ public class Test implements PlusCommand{
             return stacks;
         }
 
-        public void onOpen(CraftHumanEntity who) {
+        public void onOpen(CraftHumanEntity who) { 
             this.viewers.add(who);
         }
 
@@ -223,21 +213,21 @@ public class Test implements PlusCommand{
         }
 
 
-        public InventoryHolder getOwner() {
+        public InventoryHolder getOwner() { //always null
             return this.owner;
         }
 
-        public boolean b(int i, ItemStack itemstack) {
+        public boolean b(int i, ItemStack itemstack) { //idk
             return true;
         }
 
-        public void b_(EntityHuman entityHuman) {
+        public void b_(EntityHuman entityHuman) { //idk
         }
 
-        public void c_(EntityHuman entityHuman) {
+        public void c_(EntityHuman entityHuman) { //idk
         }
 
-        public void a() {
+        public void a() { //clear
             this.contents.clear();
             this.armor.clear();
             this.extra.clear();
@@ -249,7 +239,7 @@ public class Test implements PlusCommand{
 
 
 
-        public boolean c() {
+        public boolean c() { //isEmpty
             for(NonNullList<ItemStack> list : this.all) {
                 for(ItemStack stack : list) {
                     if(!stack.b()) {
