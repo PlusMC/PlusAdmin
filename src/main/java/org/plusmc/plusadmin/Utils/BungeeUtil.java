@@ -1,11 +1,15 @@
 package org.plusmc.plusadmin.utils;
 
+import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
 import org.bukkit.entity.Player;
 
 import org.bukkit.plugin.messaging.PluginMessageListener;
+
+import java.util.HashMap;
 
 public class BungeeUtil implements PluginMessageListener {
     HashMap<String, ServerInfo> SERVER_INFO = new HashMap<>();
@@ -41,12 +45,12 @@ public class BungeeUtil implements PluginMessageListener {
         PlusAdmin.getInstance().getServer().sendPluginMessage(PlusAdmin.getInstance(), "BungeeCord", out.toByteArray());
     }
 
-    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+    public void onPluginMessageReceived(String channel, @NotNull Player player, byte[] message) {
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         switch(channel) {
             case "PlayerList" -> handlePlayerList(in);
             case "ServerIP"-> handleServerIP(in);
-        };
+        }
     }
 
     private void handlePlayerList(ByteArrayDataInput in) {
