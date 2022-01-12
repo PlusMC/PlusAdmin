@@ -25,13 +25,15 @@ public final class PlusAdmin extends JavaPlugin {
         loadConfig();
         LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        Bukkit.getMessenger().registerIncomingPluginChanne(this, "BungeeCord", new BungeeUtil());
         PlusCommand.loadCommands();
         PlusItem.loadAll();
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getMessenger().unregisterOutgoingPluginChannel(this, "BungeeCord");
+        Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
+        Bukkit.getMessenger.unregisterIncomingPluginChannel(this);
         PlusItem.unloadAll();
         PlusCommand.unloadCommands();
     }

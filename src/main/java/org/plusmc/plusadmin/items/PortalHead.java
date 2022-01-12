@@ -78,8 +78,8 @@ public class PortalHead implements PlusItem {
             String json = new String(fis.readAllBytes());
             JsonArray array = new Gson().fromJson(json, JsonArray.class);
             for(int i = 0; i < array.size(); i++) {
-                JsonArray loc = array.get(i).getAsJsonArray();
-                Location location = new Location(Bukkit.getWorld(loc.get(3).getAsString()), loc.get(0).getAsDouble(), loc.get(1).getAsDouble(), loc.get(2).getAsDouble());
+                JsonArray data = array.get(i).getAsJsonArray();
+                Location location = new Location(Bukkit.getWorld(data.get(3).getAsString()), data.get(0).getAsDouble(), data.get(1).getAsDouble(), data.get(2).getAsDouble());
                 Block block = location.getBlock();
                 if(block.getState() instanceof TileState) {
                     TICKING_BLOCKS.add(block);
@@ -97,12 +97,12 @@ public class PortalHead implements PlusItem {
             fos = new FileOutputStream(PlusAdmin.getInstance().getDataFolder() + "/ticking_blocks.json");
             JsonArray array = new JsonArray();
             for(Block block : TICKING_BLOCKS) {
-                JsonArray loc = new JsonArray();
-                loc.add(block.getX());
-                loc.add(block.getY());
-                loc.add(block.getZ());
-                loc.add(block.getWorld().getName());
-                array.add(loc);
+                JsonArray data = new JsonArray();
+                data.add(block.getX());
+                data.add(block.getY());
+                data.add(block.getZ());
+                data.add(block.getWorld().getName());
+                array.add(data);
             }
             fos.write(array.toString().getBytes());
             fos.close();

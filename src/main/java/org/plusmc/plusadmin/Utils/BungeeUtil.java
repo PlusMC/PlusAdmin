@@ -12,9 +12,8 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import java.util.HashMap;
 
 public class BungeeUtil implements PluginMessageListener {
-    HashMap<String, ServerInfo> SERVER_INFO = new HashMap<>();
-    HashMap<String, PlayerList> PLAYER_LIST = new HashMap<>();
-
+    private static HashMap<String, ServerInfo> SERVER_INFO = new HashMap<>();
+    private static HashMap<String, PlayerList> PLAYER_LIST = new HashMap<>();
 
     public static void connectServer(Player player, String server) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -64,6 +63,15 @@ public class BungeeUtil implements PluginMessageListener {
         String ip = in.readUTF();
         int port = in.readUnsignedShort();
         SERVER_INFO.put(server, new ServerInfo(server, ip, port));
+    }
+
+
+    public static ServerInfo getInfo(String server) {
+        return SERVER_INFO.get(server);
+    }
+
+    public static PlayerList getPlayerList(String server) {
+        return PLAYER_LIST.get(server);
     }
 
     public static record ServerInfo(String server, String ip, int port) {}
