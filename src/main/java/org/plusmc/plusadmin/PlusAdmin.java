@@ -30,7 +30,7 @@ public final class PlusAdmin extends JavaPlugin {
         PlusCommand.loadCommands();
         PlusItem.loadAll();
     }
- test i am fsdafsadfsadf asdfkpoa dsfkapo fkpaosdkfpo kpofdakspofkpsokf pkaspdof action should error out
+
     @Override
     public void onDisable() {
         Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
