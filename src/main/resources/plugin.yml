@@ -4,4 +4,5 @@ main: org.plusmc.plusadmin.PlusAdmin
 api-version: 1.18
 authors: [ OakleyCord ]
 description: Admin tools for the Plus MC Server
+depend: [ PlusLib]
 website: plusmc.org

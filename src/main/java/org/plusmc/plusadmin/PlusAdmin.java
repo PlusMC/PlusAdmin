@@ -1,50 +1,36 @@
 package org.plusmc.plusadmin;
 
-import org.plusmc.plusadmin.commands.InvSee;
-import org.plusmc.plusadmin.commands.PlusCommand;
-import org.plusmc.plusadmin.events.InteractEvents;
-import org.plusmc.plusadmin.items.PlusItem;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.plusmc.plusadmin.util.BungeeUtil;
+import org.plusmc.plusadmin.commands.*;
+import org.plusmc.plusadmin.items.GravityGun;
+import org.plusmc.plusadmin.items.PortalHead;
+import org.plusmc.plusadmin.items.SlayButton;
+import org.plusmc.pluslib.CommandManager;
+import org.plusmc.pluslib.PlusItemManager;
+import org.plusmc.pluslib.commands.PlusCommand;
+import org.plusmc.pluslib.item.PlusItem;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 public final class PlusAdmin extends JavaPlugin {
-    static final List<Listener> LISTENERS = List.of(
-            new InteractEvents(),
+    private static final List<Listener> LISTENERS = List.of(
             new InvSee.Listener()
     );
-
-
-    @Override
-    public void onEnable() {
-        if(!getDataFolder().exists()) getDataFolder().mkdir();
-        loadConfig();
-        LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeUtil());
-        PlusCommand.loadCommands();
-        PlusItem.loadAll();
-    }
-
-    @Override
-    public void onDisable() {
-        Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
-        Bukkit.getMessenger().unregisterIncomingPluginChannel(this);
-        PlusItem.unloadAll();
-        PlusCommand.unloadCommands();
-    }
-
-    private void loadConfig() {
-        FileConfiguration config =  PlusAdmin.getInstance().getConfig();
-        config.addDefault("player-backup-folder", "backups/world/playerdata");
-        config.options().copyDefaults(true);
-        PlusAdmin.getInstance().saveConfig();
-    }
+    private static final List<PlusItem> ITEMS = List.of(
+            new GravityGun(),
+            new PortalHead(),
+            new SlayButton()
+    );
+    private static final List<PlusCommand> COMMANDS = List.of(
+            new AdminTool(),
+            new InvSee(),
+            new Lobby(),
+            new RevertPlayer(),
+            new Vanish()
+    );
 
     public static PlusAdmin getInstance() {
         return JavaPlugin.getPlugin(PlusAdmin.class);
@@ -52,5 +38,21 @@ public final class PlusAdmin extends JavaPlugin {
 
     public static Logger logger() {
         return PlusAdmin.getInstance().getLogger();
+    }
+
+    @Override
+    public void onEnable() {
+        if (!getDataFolder().exists()) getDataFolder().mkdir();
+        loadConfig();
+        LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
+        ITEMS.forEach(PlusItemManager::register);
+        COMMANDS.forEach(CommandManager::register);
+    }
+
+    private void loadConfig() {
+        FileConfiguration config = PlusAdmin.getInstance().getConfig();
+        config.addDefault("player-backup-folder", "backups/world/playerdata");
+        config.options().copyDefaults(true);
+        PlusAdmin.getInstance().saveConfig();
     }
 }

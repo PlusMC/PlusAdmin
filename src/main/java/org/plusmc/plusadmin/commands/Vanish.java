@@ -4,8 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.pluslib.commands.PlusCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,11 @@ public class Vanish implements PlusCommand {
     }
 
     @Override
+    public JavaPlugin getPlugin() {
+        return PlusAdmin.getInstance();
+    }
+
+    @Override
     public List<String> getCompletions(int page) {
         return null;
     }
@@ -46,7 +53,7 @@ public class Vanish implements PlusCommand {
 
     @Override
     public void unload() {
-        for(Player p : VANISHED) {
+        for (Player p : VANISHED) {
             Bukkit.getOnlinePlayers().forEach(player -> player.showPlayer(PlusAdmin.getInstance(), p));
         }
         VANISHED.clear();
@@ -54,11 +61,11 @@ public class Vanish implements PlusCommand {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage("Only players can use this command");
             return true;
         }
-        if(VANISHED.contains(player)) {
+        if (VANISHED.contains(player)) {
             VANISHED.remove(player);
             Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(PlusAdmin.getInstance(), player));
             sender.sendMessage("§aYou have §6unvanished!");

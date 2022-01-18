@@ -3,6 +3,7 @@ package org.plusmc.plusadmin.items;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.plusmc.pluslib.item.PlusItem;
 
 public class SlayButton implements PlusItem {
     @Override
@@ -27,7 +28,7 @@ public class SlayButton implements PlusItem {
 
     @Override
     public void onInteractEntity(PlayerInteractEntityEvent e) {
-        if(e.getRightClicked() instanceof LivingEntity entity) {
+        if (e.getRightClicked() instanceof LivingEntity entity) {
             entity.setHealth(0);
         } else {
             e.getRightClicked().remove();

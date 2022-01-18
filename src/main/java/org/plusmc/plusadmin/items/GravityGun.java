@@ -1,6 +1,5 @@
 package org.plusmc.plusadmin.items;
 
-import org.plusmc.plusadmin.PlusAdmin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -13,6 +12,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.pluslib.PlusItemManager;
+import org.plusmc.pluslib.item.PlusItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class GravityGun implements PlusItem {
 
     @Override
     public void unload() {
-        if(TASK != null) TASK.cancel();
+        if (TASK != null) TASK.cancel();
         HELD.clear();
         LAST_USE.clear();
     }
@@ -48,7 +50,7 @@ public class GravityGun implements PlusItem {
 
     @Override
     public String[] getLore() {
-        return new String[] { "Right Click Entity To Grab/Drop", "Left Click To Shoot" };
+        return new String[]{"Right Click Entity To Grab/Drop", "Left Click To Shoot"};
     }
 
     @Override
@@ -59,8 +61,8 @@ public class GravityGun implements PlusItem {
     @Override
     public void onInteractBlock(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        if(!HELD.containsKey(p)) return;
-        if(LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
+        if (!HELD.containsKey(p)) return;
+        if (LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
         e.setCancelled(true);
 
         HELD.remove(p);
@@ -71,10 +73,10 @@ public class GravityGun implements PlusItem {
     @Override
     public void onInteractEntity(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-        if(!(e.getRightClicked() instanceof LivingEntity ee)) return;
-        if(LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
+        if (!(e.getRightClicked() instanceof LivingEntity ee)) return;
+        if (LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
 
-        if(!HELD.containsKey(p)) {
+        if (!HELD.containsKey(p)) {
             HELD.put(p, ee);
             LAST_USE.put(p, System.currentTimeMillis());
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Gravity Gun: You Are Holding " + ee.getName()));
@@ -87,8 +89,8 @@ public class GravityGun implements PlusItem {
 
     @Override
     public void onDamageEntity(EntityDamageByEntityEvent e) {
-        if(!(e.getDamager() instanceof Player p)) return;
-        if(HELD.containsKey(p)) {
+        if (!(e.getDamager() instanceof Player p)) return;
+        if (HELD.containsKey(p)) {
             LivingEntity ee = HELD.get(p);
             if (ee != e.getEntity()) return;
             e.setCancelled(true);
@@ -97,7 +99,7 @@ public class GravityGun implements PlusItem {
             Vector to = p.getEyeLocation().getDirection().multiply(3);
             ee.setVelocity(to);
         } else {
-            if(!(e.getEntity() instanceof LivingEntity ee)) return;
+            if (!(e.getEntity() instanceof LivingEntity ee)) return;
             e.setCancelled(true);
 
             Vector to = p.getEyeLocation().getDirection().multiply(3);
@@ -107,10 +109,10 @@ public class GravityGun implements PlusItem {
     }
 
     public void tick() {
-        for(Map.Entry<Player, LivingEntity> entries : HELD.entrySet()) {
+        for (Map.Entry<Player, LivingEntity> entries : HELD.entrySet()) {
             Player p = entries.getKey();
             LivingEntity e = entries.getValue();
-            if(e == null || !e.isValid()) {
+            if (e == null || !e.isValid()) {
                 HELD.remove(p);
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Gravity Gun: Entity Has Died"));
                 continue;
@@ -118,13 +120,11 @@ public class GravityGun implements PlusItem {
             e.setFallDistance(0);
 
             ItemStack stack = p.getInventory().getItemInMainHand();
-            if(PlusItem.hasCustomItem(stack, this.getID())) {
-
+            if (PlusItemManager.hasCustomItem(stack, this.getID())) {
                 Vector to = p.getEyeLocation().getDirection().multiply(2).add(p.getEyeLocation().toVector());
                 Vector entity = e.getLocation().toVector();
                 Vector dir = to.subtract(entity);
-                dir.multiply(1/p.getEyeLocation().distance(e.getLocation()));
-                //dir.multiply(p.getLocation().distance(e.getLocation()) * 10);
+                dir.multiply(Double.min(p.getLocation().distance(e.getLocation()) / 5, 0.5));
                 e.setVelocity(dir);
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Gravity Gun: You Are Holding " + e.getName()));
             } else {

@@ -6,32 +6,31 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.PlusItemManager;
 import org.plusmc.pluslib.commands.PlusCommand;
-import org.plusmc.pluslib.item.PlusItem;
+import org.plusmc.pluslib.util.BungeeUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AdminTool implements PlusCommand {
+public class Lobby implements PlusCommand {
+
     @Override
     public String getName() {
-        return "admintool";
+        return "lobby";
     }
 
     @Override
     public String getPermission() {
-        return "plusadmin.admintool";
+        return "";
     }
 
     @Override
     public String getUsage() {
-        return "§7/admintool <tool>";
+        return "/lobby";
     }
 
     @Override
     public String getDescription() {
-        return "§7Gives you a admin tool.";
+        return "Teleports you to the lobby";
     }
 
     @Override
@@ -41,30 +40,16 @@ public class AdminTool implements PlusCommand {
 
     @Override
     public List<String> getCompletions(int page) {
-        List<String> items = new ArrayList<>();
-        if (page == 1)
-            PlusItemManager.getPlusItems().forEach(item -> items.add(item.getID()));
-
-        return items;
+        return null;
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player p)) return false;
-
-        if (args.length != 1) {
-            return false;
-        }
-
-        PlusItem item = PlusItemManager.getPlusItem(args[0]);
-        if (item == null) {
-            p.sendMessage("§cThat item does not exist!");
+        if (!(sender instanceof Player p)) {
+            sender.sendMessage("You must be a player to use this command");
             return true;
         }
-        p.getInventory().addItem(item.getItem());
-        p.sendMessage("§aYou have been given a §e" + item.getID() + "§a!");
+        BungeeUtil.connectServer(p, "lobby");
         return true;
     }
-
-
 }
