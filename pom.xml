@@ -62,7 +62,7 @@
         <repository>
             <id>plusmc-repo-snapshots</id>
             <name>PlusMC Repository</name>
-            <url>http://join.plusmc.org:8081/snapshots</url>
+            <url>https://maven.plusmc.org/snapshots</url>
         </repository>
     </repositories>
 
