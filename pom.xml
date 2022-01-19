@@ -60,9 +60,10 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>plusmc-repo</id>
-            <url>http://join.plusmc.org:8081/repository/plusmc-repo/</url>
-         </repository>
+            <id>plusmc-repo-snapshots</id>
+            <name>PlusMC Repository</name>
+            <url>http://join.plusmc.org:8081/snapshots</url>
+        </repository>
     </repositories>
 
     <dependencies>
