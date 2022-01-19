@@ -28,7 +28,7 @@ public class Vanish implements PlusCommand {
 
     @Override
     public String getUsage() {
-        return "/vanish";
+        return "/vanish <player>";
     }
 
     @Override
@@ -61,17 +61,31 @@ public class Vanish implements PlusCommand {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command");
+        Player player;
+        if (args.length > 0) {
+            player = Bukkit.getPlayer(args[0]);
+        } else if (sender instanceof Player) {
+            player = (Player) sender;
+        } else {
+            sender.sendMessage("§cYou must specify a player!");
             return true;
         }
-        if (VANISHED.contains(player)) {
-            VANISHED.remove(player);
-            Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(PlusAdmin.getInstance(), player));
+
+        if (player == null) {
+            sender.sendMessage("§cPlayer not found!");
+            return true;
+        }
+
+
+        Player target = player;
+
+        if (VANISHED.contains(target)) {
+            VANISHED.remove(target);
+            Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(PlusAdmin.getInstance(), target));
             sender.sendMessage("§aYou have §6unvanished!");
         } else {
-            VANISHED.add(player);
-            Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(PlusAdmin.getInstance(), player));
+            VANISHED.add(target);
+            Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(PlusAdmin.getInstance(), target));
             sender.sendMessage("§aYou have §6vanished!");
         }
         return true;

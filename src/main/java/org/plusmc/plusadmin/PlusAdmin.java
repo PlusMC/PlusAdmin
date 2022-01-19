@@ -7,8 +7,7 @@ import org.plusmc.plusadmin.commands.*;
 import org.plusmc.plusadmin.items.GravityGun;
 import org.plusmc.plusadmin.items.PortalHead;
 import org.plusmc.plusadmin.items.SlayButton;
-import org.plusmc.pluslib.CommandManager;
-import org.plusmc.pluslib.PlusItemManager;
+import org.plusmc.pluslib.GeneralManager;
 import org.plusmc.pluslib.commands.PlusCommand;
 import org.plusmc.pluslib.item.PlusItem;
 
@@ -45,8 +44,8 @@ public final class PlusAdmin extends JavaPlugin {
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         loadConfig();
         LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
-        ITEMS.forEach(PlusItemManager::register);
-        COMMANDS.forEach(CommandManager::register);
+        ITEMS.forEach(GeneralManager::register);
+        COMMANDS.forEach(GeneralManager::register);
     }
 
     private void loadConfig() {

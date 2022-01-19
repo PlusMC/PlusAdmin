@@ -2,7 +2,6 @@ package org.plusmc.plusadmin.items;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -10,17 +9,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
-import org.plusmc.plusadmin.PlusAdmin;
 import org.plusmc.pluslib.PlusItemManager;
 import org.plusmc.pluslib.item.PlusItem;
+import org.plusmc.pluslib.tickable.Tickable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class GravityGun implements PlusItem {
-    BukkitTask TASK;
+public class GravityGun implements PlusItem, Tickable {
     HashMap<Player, LivingEntity> HELD = new HashMap<>();
     HashMap<Player, Long> LAST_USE = new HashMap<>();
 
@@ -28,12 +25,10 @@ public class GravityGun implements PlusItem {
     public void load() {
         HELD = new HashMap<>();
         LAST_USE = new HashMap<>();
-        TASK = Bukkit.getScheduler().runTaskTimer(PlusAdmin.getInstance(), this::tick, 0, 1);
     }
 
     @Override
     public void unload() {
-        if (TASK != null) TASK.cancel();
         HELD.clear();
         LAST_USE.clear();
     }
@@ -108,7 +103,8 @@ public class GravityGun implements PlusItem {
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("Gravity Gun: Entity Has Been Thrown"));
     }
 
-    public void tick() {
+    @Override
+    public void tick(long tick) {
         for (Map.Entry<Player, LivingEntity> entries : HELD.entrySet()) {
             Player p = entries.getKey();
             LivingEntity e = entries.getValue();
@@ -133,5 +129,4 @@ public class GravityGun implements PlusItem {
             }
         }
     }
-
 }

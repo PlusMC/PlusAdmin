@@ -10,10 +10,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.scheduler.BukkitTask;
 import org.plusmc.plusadmin.PlusAdmin;
 import org.plusmc.pluslib.PlusItemManager;
 import org.plusmc.pluslib.item.PlusItem;
+import org.plusmc.pluslib.tickable.Tickable;
 import org.plusmc.pluslib.util.BungeeUtil;
 
 import java.io.File;
@@ -21,54 +21,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.*;
 
-public class PortalHead implements PlusItem {
+public class PortalHead implements PlusItem, Tickable {
     private static List<Portal> TICKING_PORTALS = new ArrayList<>();
     private static HashMap<Player, Long> LAST_USE = new HashMap<>();
-    private static BukkitTask TASK = null;
-    private static long TICK = 0;
-
-    private static void tick() {
-        for (Iterator<Portal> it = TICKING_PORTALS.iterator(); it.hasNext(); ) {
-            Portal portal = it.next();
-            Block block = portal.block();
-            if (!block.getChunk().isLoaded()) continue;
-            if (!(block.getState() instanceof TileState state)) {
-                it.remove();
-                remove(portal);
-                continue;
-            }
-
-            if (!state.getPersistentDataContainer().has(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING)) {
-                it.remove();
-                remove(portal);
-                continue;
-            }
-            String name = portal.server();
-            List<UUID> uuids = portal.armorStands();
-            UUID id = uuids.get(1);
-            if (id == null) continue;
-
-            Entity e = Bukkit.getEntity(id);
-            if (!(e instanceof ArmorStand stand)) {
-                it.remove();
-                remove(portal);
-                continue;
-            }
-
-            block.getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2).forEach(entity -> {
-                if (entity instanceof Player p) {
-                    if (!(LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 5000)) {
-                        LAST_USE.put(p, System.currentTimeMillis());
-                        BungeeUtil.connectServer(p, name);
-                    }
-                }
-            });
-            helix(block.getLocation(), TICK);
-            if (TICK % 75 == 0)
-                updateStand(stand, block, name);
-        }
-        TICK++;
-    }
 
     private static void updateStand(ArmorStand stand, Block block, String name) {
         BungeeUtil.updateServer(name);
@@ -126,8 +81,6 @@ public class PortalHead implements PlusItem {
         LAST_USE = new HashMap<>();
         TICKING_PORTALS = new ArrayList<>();
         loadBlocks();
-        TICK = 0;
-        TASK = Bukkit.getScheduler().runTaskTimer(PlusAdmin.getInstance(), PortalHead::tick, 0, 1);
     }
 
     @Override
@@ -135,7 +88,6 @@ public class PortalHead implements PlusItem {
         save();
         TICKING_PORTALS.clear();
         LAST_USE.clear();
-        if (TASK != null) TASK.cancel();
     }
 
     public void loadBlocks() {
@@ -215,6 +167,49 @@ public class PortalHead implements PlusItem {
         world.strikeLightningEffect(e.getBlockPlaced().getLocation().add(0.5, 0, 0.5));
         world.playSound(e.getBlockPlaced().getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1, 1);
         TICKING_PORTALS.add(new Portal(e.getItemInHand().getItemMeta().getDisplayName(), List.of(stand.getUniqueId(), stand1.getUniqueId()), e.getBlockPlaced()));
+    }
+
+    @Override
+    public void tick(long tick) {
+        for (Iterator<Portal> it = TICKING_PORTALS.iterator(); it.hasNext(); ) {
+            Portal portal = it.next();
+            Block block = portal.block();
+            if (!block.getChunk().isLoaded()) continue;
+            if (!(block.getState() instanceof TileState state)) {
+                it.remove();
+                remove(portal);
+                continue;
+            }
+
+            if (!state.getPersistentDataContainer().has(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING)) {
+                it.remove();
+                remove(portal);
+                continue;
+            }
+            String name = portal.server();
+            List<UUID> uuids = portal.armorStands();
+            UUID id = uuids.get(1);
+            if (id == null) continue;
+
+            Entity e = Bukkit.getEntity(id);
+            if (!(e instanceof ArmorStand stand)) {
+                it.remove();
+                remove(portal);
+                continue;
+            }
+
+            block.getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2).forEach(entity -> {
+                if (entity instanceof Player p) {
+                    if (!(LAST_USE.containsKey(p) && tick - LAST_USE.get(p) < 100)) {
+                        LAST_USE.put(p, tick);
+                        BungeeUtil.connectServer(p, name);
+                    }
+                }
+            });
+            helix(block.getLocation(), tick);
+            if (tick % 75 == 0)
+                updateStand(stand, block, name);
+        }
     }
 
     private static record Portal(String server, List<UUID> armorStands, Block block) {
