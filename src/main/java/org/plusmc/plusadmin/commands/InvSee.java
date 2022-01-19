@@ -32,8 +32,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.plusadmin.util.OtherUtil;
+import org.plusmc.plusadmin.PlusAdmin;
+import org.plusmc.pluslib.commands.PlusCommand;
+import org.plusmc.pluslib.util.BukkitUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class InvSee implements PlusCommand, Listener {
-    private static HashMap<Inventory,Inventory> INVENTORIES = new HashMap<>();
+    private static HashMap<Inventory, Inventory> INVENTORIES = new HashMap<>();
 
     @Override
     public void load() {
@@ -51,8 +54,8 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public void unload() {
-        for(Inventory inv : INVENTORIES.values())
-            for(Iterator<HumanEntity> it = inv.getViewers().iterator(); it.hasNext();) {
+        for (Inventory inv : INVENTORIES.values())
+            for (Iterator<HumanEntity> it = inv.getViewers().iterator(); it.hasNext(); ) {
                 HumanEntity humanEntity = it.next();
                 it.remove();
                 humanEntity.closeInventory();
@@ -81,9 +84,14 @@ public class InvSee implements PlusCommand, Listener {
     }
 
     @Override
+    public JavaPlugin getPlugin() {
+        return PlusAdmin.getInstance();
+    }
+
+    @Override
     public List<String> getCompletions(int page) {
         return switch (page) {
-            case 1 -> OtherUtil.allPlayers();
+            case 1 -> BukkitUtil.allPlayers();
             case 2 -> List.of("Enderchest", "Inventory");
             default -> null;
         };
@@ -91,28 +99,28 @@ public class InvSee implements PlusCommand, Listener {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player p)) {
+        if (!(sender instanceof Player p)) {
             sender.sendMessage("§cYou must be a player to use this command.");
             return true;
         }
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             return false;
         }
 
         Player target = Bukkit.getPlayer(args[0]);
 
-        if(target == null) {
+        if (target == null) {
             p.sendMessage("§cPlayer not found.");
             return true;
         }
 
-        if(target == p) {
+        if (target == p) {
             p.sendMessage("§cYou can't see your own inventory.");
             return true;
         }
 
-        if(args.length == 1) {
+        if (args.length == 1) {
             openInventory(p, target);
             return true;
         }
@@ -160,14 +168,14 @@ public class InvSee implements PlusCommand, Listener {
     public static class Listener implements org.bukkit.event.Listener {
         @EventHandler
         public void onInventoryClick(InventoryClickEvent e) {
-            if(INVENTORIES.containsValue(e.getClickedInventory()))
-                if(e.getSlot() > 40) e.setCancelled(true);
+            if (INVENTORIES.containsValue(e.getClickedInventory()))
+                if (e.getSlot() > 40) e.setCancelled(true);
         }
 
         @EventHandler
         public void onPlayerLeave(PlayerQuitEvent e) {
-            if(INVENTORIES.containsKey(e.getPlayer().getInventory())) {
-                for(Iterator<HumanEntity> it = INVENTORIES.get(e.getPlayer().getInventory()).getViewers().iterator(); it.hasNext();) {
+            if (INVENTORIES.containsKey(e.getPlayer().getInventory())) {
+                for (Iterator<HumanEntity> it = INVENTORIES.get(e.getPlayer().getInventory()).getViewers().iterator(); it.hasNext(); ) {
                     HumanEntity humanEntity = it.next();
                     it.remove();
                     humanEntity.closeInventory();
@@ -187,16 +195,16 @@ public class InvSee implements PlusCommand, Listener {
         private final NonNullList<net.minecraft.world.item.ItemStack> armor;
         private final NonNullList<net.minecraft.world.item.ItemStack> extra;
         private final List<NonNullList<net.minecraft.world.item.ItemStack>> all;
-        private int maxStack;
         private final net.minecraft.world.item.ItemStack placeholder;
         private final List<HumanEntity> viewers;
+        private int maxStack;
 
 
         public LinkedInv(NonNullList<net.minecraft.world.item.ItemStack> contents, NonNullList<net.minecraft.world.item.ItemStack> armor, NonNullList<net.minecraft.world.item.ItemStack> extra) {
             this.maxStack = 64;
             ItemStack placeholder = new ItemStack(Material.BARRIER);
             ItemMeta meta = placeholder.getItemMeta();
-            if(meta != null) meta.setDisplayName("§c§lEmpty Slot");
+            if (meta != null) meta.setDisplayName("§c§lEmpty Slot");
             placeholder.setItemMeta(meta);
             this.placeholder = CraftItemStack.asNMSCopy(placeholder);
             this.contents = contents;
@@ -209,18 +217,18 @@ public class InvSee implements PlusCommand, Listener {
             this.viewers = new ArrayList<>();
         }
 
-        public int b()  { // getSize
+        public int b() { // getSize
             return 45;
         }
 
-        public net.minecraft.world.item.ItemStack a(int i)  { //getItem
-            if(i < 36) {
+        public net.minecraft.world.item.ItemStack a(int i) { //getItem
+            if (i < 36) {
                 return this.contents.get(i);
-            } else if(i < 40) {
+            } else if (i < 40) {
                 return this.armor.get(i - 36);
             } else if (i < 41) {
                 return this.extra.get(0);
-            } else if (i < 45)  {
+            } else if (i < 45) {
                 return placeholder;
             }
             return net.minecraft.world.item.ItemStack.b;
@@ -264,9 +272,9 @@ public class InvSee implements PlusCommand, Listener {
         }
 
         public void a(int i, net.minecraft.world.item.ItemStack itemstack) { //set item
-            if(i < 36) {
+            if (i < 36) {
                 this.contents.set(i, itemstack);
-            } else if(i < 40) {
+            } else if (i < 40) {
                 this.armor.set(i - 36, itemstack);
             } else if (i < 41) {
                 this.extra.set(0, itemstack);
@@ -342,9 +350,9 @@ public class InvSee implements PlusCommand, Listener {
         }
 
         public boolean c() { //isEmpty
-            for(NonNullList<net.minecraft.world.item.ItemStack> list : this.all) {
-                for(net.minecraft.world.item.ItemStack stack : list) {
-                    if(!stack.b())
+            for (NonNullList<net.minecraft.world.item.ItemStack> list : this.all) {
+                for (net.minecraft.world.item.ItemStack stack : list) {
+                    if (!stack.b())
                         return false;
                 }
             }
