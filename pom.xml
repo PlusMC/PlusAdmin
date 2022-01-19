@@ -62,7 +62,7 @@
         <repository>
             <id>plusmc-repo</id>
             <url>http://join.plusmc.org:8081/repository/plusmc-repo/</url>
-        </repository
+         </repository>
     </repositories>
 
     <dependencies>
