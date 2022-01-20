@@ -3,7 +3,7 @@ package org.plusmc.plusadmin.items;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.plusmc.pluslib.item.PlusItem;
+import org.plusmc.pluslib.plus.PlusItem;
 
 public class SlayButton implements PlusItem {
     @Override

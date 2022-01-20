@@ -7,9 +7,9 @@ import org.plusmc.plusadmin.commands.*;
 import org.plusmc.plusadmin.items.GravityGun;
 import org.plusmc.plusadmin.items.PortalHead;
 import org.plusmc.plusadmin.items.SlayButton;
-import org.plusmc.pluslib.GeneralManager;
-import org.plusmc.pluslib.commands.PlusCommand;
-import org.plusmc.pluslib.item.PlusItem;
+import org.plusmc.pluslib.managers.GeneralManager;
+import org.plusmc.pluslib.plus.PlusCommand;
+import org.plusmc.pluslib.plus.PlusItem;
 
 import java.util.List;
 import java.util.logging.Logger;
