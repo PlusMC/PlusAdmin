@@ -10,9 +10,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import org.plusmc.pluslib.PlusItemManager;
-import org.plusmc.pluslib.item.PlusItem;
-import org.plusmc.pluslib.tickable.Tickable;
+import org.plusmc.pluslib.managers.PlusItemManager;
+import org.plusmc.pluslib.plus.PlusItem;
+import org.plusmc.pluslib.plus.Tickable;
 
 import java.util.HashMap;
 import java.util.Map;

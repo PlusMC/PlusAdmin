@@ -35,7 +35,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.commands.PlusCommand;
+import org.plusmc.pluslib.plus.PlusCommand;
 import org.plusmc.pluslib.util.BukkitUtil;
 
 import java.lang.reflect.Field;
