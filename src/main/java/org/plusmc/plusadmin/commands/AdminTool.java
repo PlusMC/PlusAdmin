@@ -3,12 +3,10 @@ package org.plusmc.plusadmin.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managers.PlusItemManager;
-import org.plusmc.pluslib.plus.PlusCommand;
-import org.plusmc.pluslib.plus.PlusItem;
+import org.plusmc.pluslib.managed.PlusCommand;
+import org.plusmc.pluslib.managed.PlusItem;
+import org.plusmc.pluslib.managing.PlusItemManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +30,6 @@ public class AdminTool implements PlusCommand {
     @Override
     public String getDescription() {
         return "§7Gives you a admin tool.";
-    }
-
-    @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
     }
 
     @Override

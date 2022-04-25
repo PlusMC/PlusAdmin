@@ -70,13 +70,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.plusmc</groupId>
             <artifactId>PlusLib</artifactId>
-            <version>0.1.1</version>
+            <version>INDEV-0.2.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

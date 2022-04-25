@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.plus.PlusCommand;
+import org.plusmc.pluslib.managed.PlusCommand;
 import org.plusmc.pluslib.util.BungeeUtil;
 
 import java.util.List;
@@ -31,11 +31,6 @@ public class Lobby implements PlusCommand {
     @Override
     public String getDescription() {
         return "Teleports you to the lobby";
-    }
-
-    @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
     }
 
     @Override

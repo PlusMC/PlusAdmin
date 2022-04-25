@@ -7,14 +7,18 @@ import org.plusmc.plusadmin.commands.*;
 import org.plusmc.plusadmin.items.GravityGun;
 import org.plusmc.plusadmin.items.PortalHead;
 import org.plusmc.plusadmin.items.SlayButton;
-import org.plusmc.pluslib.managers.GeneralManager;
-import org.plusmc.pluslib.plus.PlusCommand;
-import org.plusmc.pluslib.plus.PlusItem;
+import org.plusmc.pluslib.managed.PlusCommand;
+import org.plusmc.pluslib.managed.PlusItem;
+import org.plusmc.pluslib.managing.BaseManager;
+import org.plusmc.pluslib.managing.PlusCommandManager;
+import org.plusmc.pluslib.managing.PlusItemManager;
+import org.plusmc.pluslib.managing.TickingManager;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 public final class PlusAdmin extends JavaPlugin {
+
     private static final List<Listener> LISTENERS = List.of(
             new InvSee.Listener()
     );
@@ -41,14 +45,23 @@ public final class PlusAdmin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        BaseManager.createManager(PlusCommandManager.class, this);
+        BaseManager.createManager(PlusItemManager.class, this);
+        BaseManager.createManager(TickingManager.class, this);
+
+
+        ITEMS.forEach(item->BaseManager.registerAny(item, this));
+        COMMANDS.forEach(command->BaseManager.registerAny(command, this));
+
         if (!getDataFolder().exists()) getDataFolder().mkdir();
         loadConfig();
         LISTENERS.forEach((lis) -> getServer().getPluginManager().registerEvents(lis, this));
-        ITEMS.forEach(GeneralManager::register);
-        COMMANDS.forEach(GeneralManager::register);
     }
 
     private void loadConfig() {
+
+        BaseManager.shutdownAll(this);
+
         FileConfiguration config = PlusAdmin.getInstance().getConfig();
         config.addDefault("player-backup-folder", "backups/world/playerdata");
         config.options().copyDefaults(true);

@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managers.PlusItemManager;
-import org.plusmc.pluslib.plus.PlusItem;
-import org.plusmc.pluslib.plus.Tickable;
+import org.plusmc.pluslib.managed.PlusItem;
+import org.plusmc.pluslib.managed.Tickable;
+import org.plusmc.pluslib.managing.PlusItemManager;
 import org.plusmc.pluslib.util.BungeeUtil;
 
 import java.io.File;
