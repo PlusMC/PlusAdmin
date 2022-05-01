@@ -59,12 +59,14 @@ public final class PlusAdmin extends JavaPlugin {
     }
 
     private void loadConfig() {
-
-        BaseManager.shutdownAll(this);
-
         FileConfiguration config = PlusAdmin.getInstance().getConfig();
         config.addDefault("player-backup-folder", "backups/world/playerdata");
         config.options().copyDefaults(true);
         PlusAdmin.getInstance().saveConfig();
+    }
+
+    @Override
+    public void onDisable() {
+        BaseManager.shutdownAll(this);
     }
 }

@@ -39,6 +39,11 @@ public class PortalHead implements PlusItem, Tickable {
     }
 
     private static void remove(Portal portal) {
+        try {
+            throw new Exception("Portal Removed");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         portal.armorStands().forEach(uuid -> {
             Entity stand = Bukkit.getEntity(uuid);
             if (stand instanceof ArmorStand)
@@ -174,7 +179,7 @@ public class PortalHead implements PlusItem, Tickable {
         for (Iterator<Portal> it = TICKING_PORTALS.iterator(); it.hasNext(); ) {
             Portal portal = it.next();
             Block block = portal.block();
-            if (!block.getChunk().isLoaded()) continue;
+            if (!block.getChunk().isEntitiesLoaded()) continue;
             if (!(block.getState() instanceof TileState state)) {
                 it.remove();
                 remove(portal);
@@ -212,6 +217,6 @@ public class PortalHead implements PlusItem, Tickable {
         }
     }
 
-    private static record Portal(String server, List<UUID> armorStands, Block block) {
+    private record Portal(String server, List<UUID> armorStands, Block block) {
     }
 }

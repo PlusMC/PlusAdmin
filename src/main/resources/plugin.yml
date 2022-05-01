@@ -6,3 +6,4 @@ authors: [ OakleyCord ]
 description: Admin tools for the Plus MC Server
 depend: [ PlusLib]
 website: plusmc.org
+load: POSTWORLD

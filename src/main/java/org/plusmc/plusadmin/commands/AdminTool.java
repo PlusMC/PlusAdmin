@@ -35,8 +35,8 @@ public class AdminTool implements PlusCommand {
     @Override
     public List<String> getCompletions(int page) {
         List<String> items = new ArrayList<>();
-        if (page == 1)
-            PlusItemManager.getPlusItems().forEach(item -> items.add(item.getID()));
+
+        PlusItemManager.getPlusItems().forEach(item -> items.add(item.getID()));
 
         return items;
     }
@@ -45,9 +45,9 @@ public class AdminTool implements PlusCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player p)) return false;
 
-        if (args.length != 1) {
+        if (args.length != 1)
             return false;
-        }
+
 
         PlusItem item = PlusItemManager.getPlusItem(args[0]);
         if (item == null) {
