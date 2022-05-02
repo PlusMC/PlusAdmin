@@ -11,10 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managed.PlusItem;
-import org.plusmc.pluslib.managed.Tickable;
-import org.plusmc.pluslib.managing.PlusItemManager;
-import org.plusmc.pluslib.util.BungeeUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managed.Tickable;
+import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
+import org.plusmc.pluslib.bukkit.util.BungeeUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,11 +39,6 @@ public class PortalHead implements PlusItem, Tickable {
     }
 
     private static void remove(Portal portal) {
-        try {
-            throw new Exception("Portal Removed");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         portal.armorStands().forEach(uuid -> {
             Entity stand = Bukkit.getEntity(uuid);
             if (stand instanceof ArmorStand)

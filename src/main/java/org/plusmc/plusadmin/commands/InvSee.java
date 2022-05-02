@@ -32,8 +32,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.pluslib.managed.PlusCommand;
-import org.plusmc.pluslib.util.BukkitUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.util.BukkitUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

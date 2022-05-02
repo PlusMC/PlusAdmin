@@ -7,9 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managed.PlusCommand;
-import org.plusmc.pluslib.util.BukkitUtil;
-import org.plusmc.pluslib.util.FileUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.util.BukkitUtil;
+import org.plusmc.pluslib.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;

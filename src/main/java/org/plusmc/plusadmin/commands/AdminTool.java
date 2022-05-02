@@ -4,9 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.pluslib.managed.PlusCommand;
-import org.plusmc.pluslib.managed.PlusItem;
-import org.plusmc.pluslib.managing.PlusItemManager;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
 
 import java.util.ArrayList;
 import java.util.List;

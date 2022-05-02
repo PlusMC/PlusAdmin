@@ -7,12 +7,12 @@ import org.plusmc.plusadmin.commands.*;
 import org.plusmc.plusadmin.items.GravityGun;
 import org.plusmc.plusadmin.items.PortalHead;
 import org.plusmc.plusadmin.items.SlayButton;
-import org.plusmc.pluslib.managed.PlusCommand;
-import org.plusmc.pluslib.managed.PlusItem;
-import org.plusmc.pluslib.managing.BaseManager;
-import org.plusmc.pluslib.managing.PlusCommandManager;
-import org.plusmc.pluslib.managing.PlusItemManager;
-import org.plusmc.pluslib.managing.TickingManager;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managing.BaseManager;
+import org.plusmc.pluslib.bukkit.managing.PlusCommandManager;
+import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
+import org.plusmc.pluslib.bukkit.managing.TickingManager;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,7 +30,6 @@ public final class PlusAdmin extends JavaPlugin {
     private static final List<PlusCommand> COMMANDS = List.of(
             new AdminTool(),
             new InvSee(),
-            new Lobby(),
             new RevertPlayer(),
             new Vanish()
     );
