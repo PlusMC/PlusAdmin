@@ -11,10 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managers.PlusItemManager;
-import org.plusmc.pluslib.plus.PlusItem;
-import org.plusmc.pluslib.plus.Tickable;
-import org.plusmc.pluslib.util.BungeeUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managed.Tickable;
+import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
+import org.plusmc.pluslib.bukkit.util.BungeeUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -147,7 +147,7 @@ public class PortalHead implements PlusItem, Tickable {
         if (e.getItemInHand().getItemMeta() == null) return;
 
         TileState state = (TileState) e.getBlockPlaced().getState();
-        state.getPersistentDataContainer().set(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING, this.getID());
+        state.getPersistentDataContainer().set(PlusItemManager.itemKey, PersistentDataType.STRING, this.getID());
         state.update();
         World world = e.getBlockPlaced().getWorld();
         ArmorStand stand = world.spawn(e.getBlockPlaced().getLocation().add(0.5, 1.5, 0.5), ArmorStand.class);
@@ -174,14 +174,14 @@ public class PortalHead implements PlusItem, Tickable {
         for (Iterator<Portal> it = TICKING_PORTALS.iterator(); it.hasNext(); ) {
             Portal portal = it.next();
             Block block = portal.block();
-            if (!block.getChunk().isLoaded()) continue;
+            if (!block.getChunk().isEntitiesLoaded()) continue;
             if (!(block.getState() instanceof TileState state)) {
                 it.remove();
                 remove(portal);
                 continue;
             }
 
-            if (!state.getPersistentDataContainer().has(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING)) {
+            if (!state.getPersistentDataContainer().has(PlusItemManager.itemKey, PersistentDataType.STRING)) {
                 it.remove();
                 remove(portal);
                 continue;
@@ -212,6 +212,6 @@ public class PortalHead implements PlusItem, Tickable {
         }
     }
 
-    private static record Portal(String server, List<UUID> armorStands, Block block) {
+    private record Portal(String server, List<UUID> armorStands, Block block) {
     }
 }

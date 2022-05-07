@@ -5,12 +5,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.plus.PlusCommand;
-import org.plusmc.pluslib.util.BukkitUtil;
-import org.plusmc.pluslib.util.FileUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.util.BukkitUtil;
+import org.plusmc.pluslib.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,11 +52,6 @@ public class RevertPlayer implements PlusCommand {
     @Override
     public String getDescription() {
         return "§7Reverts a player's data to a saved backup, kicks the player if online.";
-    }
-
-    @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
     }
 
     @Override

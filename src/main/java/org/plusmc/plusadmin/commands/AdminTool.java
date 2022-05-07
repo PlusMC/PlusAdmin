@@ -3,17 +3,25 @@ package org.plusmc.plusadmin.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.managers.PlusItemManager;
-import org.plusmc.pluslib.plus.PlusCommand;
-import org.plusmc.pluslib.plus.PlusItem;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managing.BaseManager;
+import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminTool implements PlusCommand {
+    PlusItemManager manager;
+
+    @Override
+    public void load() {
+        manager = BaseManager.getManager(PlusAdmin.getInstance(), PlusItemManager.class);
+    }
+
+
     @Override
     public String getName() {
         return "admintool";
@@ -35,15 +43,10 @@ public class AdminTool implements PlusCommand {
     }
 
     @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
-    }
-
-    @Override
     public List<String> getCompletions(int page) {
         List<String> items = new ArrayList<>();
-        if (page == 1)
-            PlusItemManager.getPlusItems().forEach(item -> items.add(item.getID()));
+        if(manager == null) return items;
+        manager.getPlusItems().forEach(item -> items.add(item.getID()));
 
         return items;
     }
@@ -52,11 +55,11 @@ public class AdminTool implements PlusCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player p)) return false;
 
-        if (args.length != 1) {
+        if (args.length != 1)
             return false;
-        }
 
-        PlusItem item = PlusItemManager.getPlusItem(args[0]);
+
+        PlusItem item = manager.getPlusItem(args[0]);
         if (item == null) {
             p.sendMessage("§cThat item does not exist!");
             return true;

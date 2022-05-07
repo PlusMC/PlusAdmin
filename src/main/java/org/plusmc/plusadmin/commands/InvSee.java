@@ -13,18 +13,17 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftHumanEntity;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_18_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftContainer;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftInventoryPlayer;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
-import org.bukkit.craftbukkit.v1_18_R1.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftContainer;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_18_R2.util.CraftChatMessage;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -32,11 +31,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.plus.PlusCommand;
-import org.plusmc.pluslib.util.BukkitUtil;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
+import org.plusmc.pluslib.bukkit.util.BukkitUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,7 +41,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class InvSee implements PlusCommand, Listener {
+public class InvSee implements PlusCommand {
     private static HashMap<Inventory, Inventory> INVENTORIES = new HashMap<>();
 
     @Override
@@ -81,11 +78,6 @@ public class InvSee implements PlusCommand, Listener {
     @Override
     public String getDescription() {
         return "§7Allows you to see another players inventory in real time, including their EnderChest.";
-    }
-
-    @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
     }
 
     @Override
@@ -156,7 +148,7 @@ public class InvSee implements PlusCommand, Listener {
             if (container != null) {
                 String title = "§6§l" + target.getName() + "§7's Inventory";
                 ePlayer.b.a(new PacketPlayOutOpenWindow(container.j, Containers.e, CraftChatMessage.fromString(title)[0]));
-                ePlayer.bW = container;
+                ePlayer.bV = container;
                 ePlayer.a(container);
                 INVENTORIES.put(target.getInventory(), viewer.getOpenInventory().getTopInventory());
             }
@@ -280,13 +272,14 @@ public class InvSee implements PlusCommand, Listener {
                 this.extra.set(0, itemstack);
             }
 
-            if (itemstack != net.minecraft.world.item.ItemStack.b && this.M_() > 0 && itemstack.I() > this.M_()) { //idk
-                itemstack.e(this.M_());
+            if (itemstack != net.minecraft.world.item.ItemStack.b && this.N_() > 0 && itemstack.I() > this.N_()) { //idk probably checks if the itemstack is of max size
+                itemstack.e(this.N_());
             }
 
         }
 
-        public int M_() { //max stack size
+        @Override
+        public int N_() {  //getMaxStackSize
             return this.maxStack;
         }
 

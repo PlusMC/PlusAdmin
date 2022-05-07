@@ -4,10 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.plusmc.plusadmin.PlusAdmin;
-import org.plusmc.pluslib.plus.PlusCommand;
+import org.plusmc.pluslib.bukkit.managed.PlusCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +33,6 @@ public class Vanish implements PlusCommand {
     @Override
     public String getDescription() {
         return "Make yourself completely invisible";
-    }
-
-    @Override
-    public JavaPlugin getPlugin() {
-        return PlusAdmin.getInstance();
     }
 
     @Override
