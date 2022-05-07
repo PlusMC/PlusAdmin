@@ -147,7 +147,7 @@ public class PortalHead implements PlusItem, Tickable {
         if (e.getItemInHand().getItemMeta() == null) return;
 
         TileState state = (TileState) e.getBlockPlaced().getState();
-        state.getPersistentDataContainer().set(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING, this.getID());
+        state.getPersistentDataContainer().set(PlusItemManager.itemKey, PersistentDataType.STRING, this.getID());
         state.update();
         World world = e.getBlockPlaced().getWorld();
         ArmorStand stand = world.spawn(e.getBlockPlaced().getLocation().add(0.5, 1.5, 0.5), ArmorStand.class);
@@ -181,7 +181,7 @@ public class PortalHead implements PlusItem, Tickable {
                 continue;
             }
 
-            if (!state.getPersistentDataContainer().has(PlusItemManager.PLUS_ITEM_KEY, PersistentDataType.STRING)) {
+            if (!state.getPersistentDataContainer().has(PlusItemManager.itemKey, PersistentDataType.STRING)) {
                 it.remove();
                 remove(portal);
                 continue;

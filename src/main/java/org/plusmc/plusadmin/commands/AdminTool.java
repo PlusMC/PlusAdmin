@@ -4,14 +4,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.plusmc.plusadmin.PlusAdmin;
 import org.plusmc.pluslib.bukkit.managed.PlusCommand;
 import org.plusmc.pluslib.bukkit.managed.PlusItem;
+import org.plusmc.pluslib.bukkit.managing.BaseManager;
 import org.plusmc.pluslib.bukkit.managing.PlusItemManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminTool implements PlusCommand {
+    PlusItemManager manager;
+
+    @Override
+    public void load() {
+        manager = BaseManager.getManager(PlusAdmin.getInstance(), PlusItemManager.class);
+    }
+
+
     @Override
     public String getName() {
         return "admintool";
@@ -35,8 +45,8 @@ public class AdminTool implements PlusCommand {
     @Override
     public List<String> getCompletions(int page) {
         List<String> items = new ArrayList<>();
-
-        PlusItemManager.getPlusItems().forEach(item -> items.add(item.getID()));
+        if(manager == null) return items;
+        manager.getPlusItems().forEach(item -> items.add(item.getID()));
 
         return items;
     }
@@ -49,7 +59,7 @@ public class AdminTool implements PlusCommand {
             return false;
 
 
-        PlusItem item = PlusItemManager.getPlusItem(args[0]);
+        PlusItem item = manager.getPlusItem(args[0]);
         if (item == null) {
             p.sendMessage("§cThat item does not exist!");
             return true;
