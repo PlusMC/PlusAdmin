@@ -55,7 +55,7 @@ public class GravityGun implements PlusItem, Tickable {
     }
 
     @Override
-    public void onInteractBlock(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (!HELD.containsKey(p)) return;
         if (LAST_USE.containsKey(p) && System.currentTimeMillis() - LAST_USE.get(p) < 1000) return;
