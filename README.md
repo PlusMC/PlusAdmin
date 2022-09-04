@@ -7,7 +7,7 @@ A small admin plugin for PlusMC
 - JDK 16
 
 ### Compile
-1. Clone this repository (`git clone https://github.com/PlusMC/Manhunt.git`)
+1. Clone this repository (`git clone https://github.com/PlusMC/PlusAdmin.git`)
 2. Confirm if the PlusLib dependency is resolved, if not check [Other Notes](#other-notes)
 3. Run `maven package` and the jars should be at `target/`
 
